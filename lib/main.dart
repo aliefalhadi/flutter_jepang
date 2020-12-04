@@ -5,7 +5,7 @@ import 'package:flutterstarter/views/Home.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
-  
+
   runApp(MyApp());
 }
 
