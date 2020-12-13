@@ -146,39 +146,44 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                           ),
 
-                          Container(
-                            padding: EdgeInsets.all(8),
-                            width: MediaQuery.of(context).size.width/2.7,
-                            height: 140,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(20),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    blurRadius: 5.0,
-                                    spreadRadius: 0.1,
-                                    offset: Offset(
-                                      0.0, // Move to right 10  horizontally
-                                      5.0, // Move to bottom 5 Vertically
+                          InkWell(
+                            onTap: (){
+                              Navigator.pushNamed(context, '/modul');
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(8),
+                              width: MediaQuery.of(context).size.width/2.7,
+                              height: 140,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(20),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.2),
+                                      blurRadius: 5.0,
+                                      spreadRadius: 0.1,
+                                      offset: Offset(
+                                        0.0, // Move to right 10  horizontally
+                                        5.0, // Move to bottom 5 Vertically
+                                      ),
+                                    )
+                                  ]
+                              ),
+                              child: Column(
+                                children: [
+                                  Image.asset(
+                                    'assets/images/belajarkamus.png',
+                                    width: 80,
+                                  ),
+                                  Spacer(),
+                                  Text(
+                                    "BELAJAR",
+                                    style: TextStyle(
+                                        fontSize: 18
                                     ),
                                   )
-                                ]
-                            ),
-                            child: Column(
-                              children: [
-                                Image.asset(
-                                  'assets/images/belajarkamus.png',
-                                  width: 80,
-                                ),
-                                Spacer(),
-                                Text(
-                                  "BELAJAR",
-                                  style: TextStyle(
-                                      fontSize: 18
-                                  ),
-                                )
-                              ],
+                                ],
+                              ),
                             ),
                           ),
 
