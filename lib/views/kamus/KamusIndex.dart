@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutterstarter/models/DaftarKataModel.dart';
 import 'package:flutterstarter/provider/KamusProvider.dart';
 import 'package:flutterstarter/shareds/ViewState.dart';
@@ -49,7 +50,11 @@ class _KamusIndexState extends State<KamusIndex> {
                       suffixIcon: IconButton(
                         icon: Icon(Icons.search),
                         onPressed: () async {
-                          provider.getCariKata();
+                          if(provider.cariKata['kata'] == ''){
+                            provider.initDataKamus();
+                          }else{
+                            provider.getCariKata();
+                          }
                         },
                       ),
                       hintText: "Cari kata",
@@ -174,7 +179,18 @@ class _KamusIndexState extends State<KamusIndex> {
                                           Text(data.terjemahanKata),
                                         ],
                                       ),
-                                      Icon(Icons.audiotrack)
+                                      InkWell(
+                                          child: Icon(Icons.audiotrack),
+                                        onTap: () async{
+                                          FlutterTts flutterTts = FlutterTts();
+                                          await flutterTts.setLanguage("ja-JP");
+                                          await flutterTts.setSpeechRate(1.0);
+                                          await flutterTts.setPitch(0.3);
+                                          var result = await flutterTts.speak("${data.kataJepangKanji != '' ? data.kataJepangKanji : data.kataJepangHiragana}");
+//                                          final translator = GoogleTranslator();
+//                                          translator.
+                                        },
+                                      )
                                     ],
                                   ),
                                 ),

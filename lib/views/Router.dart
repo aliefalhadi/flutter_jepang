@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterstarter/views/kamus/KamusIndex.dart';
+import 'package:flutterstarter/views/latihan/TestLatihan.dart';
 
 import 'Home.dart';
 
@@ -14,6 +15,11 @@ class RouterApp {
       case '/kamus':
         return MaterialPageRoute(
             builder: (_) => KamusIndex()
+        );
+
+      case '/test-latihan':
+        return MaterialPageRoute(
+            builder: (_) => TestLatihan()
         );
     }
   }

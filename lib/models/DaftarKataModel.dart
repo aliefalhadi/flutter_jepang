@@ -17,12 +17,12 @@ class DaftarKataModel {
 
   String status;
   List<Datum> data;
-  int totalItems;
+  String totalItems;
 
   factory DaftarKataModel.fromJson(Map<String, dynamic> json) => DaftarKataModel(
     status: json["status"],
     data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
-    totalItems: json["totalItems"],
+    totalItems: json["totalItems"].toString(),
   );
 
   Map<String, dynamic> toJson() => {
@@ -42,7 +42,7 @@ class Datum {
     this.terjemahanKata,
   });
 
-  int idKamus;
+  String idKamus;
   String kataJepangHiragana;
   String kataJepangKatakana;
   String kataJepangKanji;
@@ -50,7 +50,7 @@ class Datum {
   String terjemahanKata;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-    idKamus: int.parse(json["id_kamus"].toString()),
+    idKamus: json["id_kamus"].toString(),
     kataJepangHiragana: json["kata_jepang_hiragana"],
     kataJepangKatakana: json["kata_jepang_katakana"],
     kataJepangKanji: json["kata_jepang_kanji"],
@@ -67,3 +67,4 @@ class Datum {
     "terjemahan_kata": terjemahanKata,
   };
 }
+

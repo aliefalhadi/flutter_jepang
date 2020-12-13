@@ -15,6 +15,6 @@ void setupLocator() {
 
 
   // provider
-  locator.registerLazySingleton(() => HomeProvider());
+  locator.registerFactory(() => HomeProvider());
   locator.registerLazySingleton(() => KamusProvider());
 }
