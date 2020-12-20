@@ -1,5 +1,7 @@
 import 'package:flutterstarter/provider/HomeProvider.dart';
 import 'package:flutterstarter/provider/KamusProvider.dart';
+import 'package:flutterstarter/provider/LoginProvider.dart';
+import 'package:flutterstarter/provider/MainProvider.dart';
 import 'package:flutterstarter/provider/ModulLatihanProvider.dart';
 import 'package:flutterstarter/provider/ModulLatihanSoalProvider.dart';
 import 'package:flutterstarter/provider/ModulProvider.dart';
@@ -24,6 +26,8 @@ void setupLocator() {
 
 
   // provider
+  locator.registerFactory(() => MainProvider());
+  locator.registerFactory(() => LoginProvider());
   locator.registerFactory(() => HomeProvider());
   locator.registerFactory(() => KamusProvider());
   locator.registerFactory(() => ModulProvider());

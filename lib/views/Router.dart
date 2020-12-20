@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterstarter/models/DaftarSoalModulLatihanModel.dart';
+import 'package:flutterstarter/views/Login.dart';
 import 'package:flutterstarter/views/kamus/KamusIndex.dart';
 import 'package:flutterstarter/views/latihan/JawabSoalLatihan.dart';
 import 'package:flutterstarter/views/latihan/ModulLatihan.dart';
@@ -14,6 +15,11 @@ import 'Home.dart';
 class RouterApp {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case '/login':
+        return MaterialPageRoute(
+            builder: (_) => Login()
+        );
+
       case '/home':
         return MaterialPageRoute(
             builder: (_) => MyHomePage(title: 'Flutter Demo Home Page')

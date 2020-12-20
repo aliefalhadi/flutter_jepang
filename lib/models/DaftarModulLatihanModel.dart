@@ -30,6 +30,26 @@ class DaftarModulLatihanModel {
 
 class Datum {
   Datum({
+    this.model,
+    this.jumlahSoal,
+  });
+
+  Model model;
+  String jumlahSoal;
+
+  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+    model: Model.fromJson(json["model"]),
+    jumlahSoal: json["jumlah_soal"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "model": model.toJson(),
+    "jumlah_soal": jumlahSoal,
+  };
+}
+
+class Model {
+  Model({
     this.idModulLatihan,
     this.levelLatihan,
     this.namaModulLatihan,
@@ -39,7 +59,7 @@ class Datum {
   int levelLatihan;
   String namaModulLatihan;
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory Model.fromJson(Map<String, dynamic> json) => Model(
     idModulLatihan: json["id_modul_latihan"],
     levelLatihan: json["level_latihan"],
     namaModulLatihan: json["nama_modul_latihan"],

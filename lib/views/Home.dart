@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutterstarter/locator.dart';
 import 'package:flutterstarter/provider/HomeProvider.dart';
+import 'package:flutterstarter/provider/LoginProvider.dart';
 import 'package:flutterstarter/views/BaseView.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -12,6 +14,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -21,8 +24,97 @@ class _MyHomePageState extends State<MyHomePage> {
       onModelReady: (model) => model.main(),
       builder: (context, provider, child) {
         return Scaffold(
+            key: _drawerKey,
+            endDrawerEnableOpenDragGesture: false,
             backgroundColor: Colors.white,
-
+            drawer: Drawer(
+              child: ListView(
+                children: <Widget>[
+                  SafeArea(
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          height: MediaQuery.of(context).size.height / 1.4,
+                        ),
+                        InkWell(
+                          child: ListTile(
+                            title: Text(''),
+                          ),
+                          onTap: () async {
+//                          Navigator.pop(context);
+//                            Navigator.pushNamed(context, 'ganti-password');
+                          },
+                        ),
+                        Divider(
+                          height: 1,
+                        ),
+                        InkWell(
+                          child: ListTile(
+                            leading: Icon(Icons.exit_to_app),
+                            title: Text('Keluar'),
+                          ),
+                          onTap: () async {
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: Text("Keluar"),
+                                    content: Text("Apakah anda yakin?"),
+                                    actions: <Widget>[
+                                      FlatButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text(
+                                          "Batal",
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                      ),
+                                      FlatButton(
+                                        onPressed: () async {
+                                          showDialog(
+                                              context: context,
+                                              builder: (dialogContex) {
+                                                return WillPopScope(
+                                                  onWillPop: () async => false,
+                                                  child: Center(
+                                                    child: Card(
+                                                      child: Container(
+                                                        width: 80,
+                                                        height: 80,
+                                                        padding: EdgeInsets.all(
+                                                            12.0),
+                                                        child:
+                                                            CircularProgressIndicator(),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                );
+                                              });
+                                          bool res =
+                                              await locator<LoginProvider>()
+                                                  .logout();
+                                          if (res) {
+                                            Navigator.of(context)
+                                                .pushNamedAndRemoveUntil(
+                                                    '/login',
+                                                    (Route<dynamic> route) =>
+                                                        false);
+                                          }
+                                        },
+                                        child: Text("Keluar"),
+                                      )
+                                    ],
+                                  );
+                                });
+                          },
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
             body: SafeArea(
               child: SingleChildScrollView(
                 child: Column(
@@ -44,7 +136,15 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Icon(Icons.dehaze, color: Colors.white,),
+                                InkWell(
+                                  child: Icon(
+                                    Icons.dehaze,
+                                    color: Colors.white,
+                                  ),
+                                  onTap: () {
+                                    _drawerKey.currentState.openDrawer();
+                                  },
+                                ),
                                 Center(
                                   child: Image.asset(
                                     'assets/images/welcome.png',
@@ -85,9 +185,17 @@ class _MyHomePageState extends State<MyHomePage> {
                                       ]),
                                   child: Row(
                                     children: [
-                                      Icon(Icons.search, color: Colors.grey,),
-                                      SizedBox(width: 8,),
-                                      Text("Cari kosa kata", style: TextStyle(color: Colors.grey),)
+                                      Icon(
+                                        Icons.search,
+                                        color: Colors.grey,
+                                      ),
+                                      SizedBox(
+                                        width: 8,
+                                      ),
+                                      Text(
+                                        "Cari kosa kata",
+                                        style: TextStyle(color: Colors.grey),
+                                      )
                                     ],
                                   ),
                                 ),
@@ -97,21 +205,19 @@ class _MyHomePageState extends State<MyHomePage> {
                         ],
                       ),
                     ),
-
                     Container(
                       margin: EdgeInsets.only(top: 8),
                       child: Wrap(
                         spacing: 32,
                         runSpacing: 16,
                         children: [
-
                           InkWell(
-                            onTap: (){
+                            onTap: () {
                               Navigator.pushNamed(context, '/kamus');
                             },
                             child: Container(
                               padding: EdgeInsets.all(8),
-                              width: MediaQuery.of(context).size.width/2.7,
+                              width: MediaQuery.of(context).size.width / 2.7,
                               height: 140,
                               decoration: BoxDecoration(
                                   color: Colors.white,
@@ -126,8 +232,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                         5.0, // Move to bottom 5 Vertically
                                       ),
                                     )
-                                  ]
-                              ),
+                                  ]),
                               child: Column(
                                 children: [
                                   Image.asset(
@@ -137,22 +242,19 @@ class _MyHomePageState extends State<MyHomePage> {
                                   Spacer(),
                                   Text(
                                     "KAMUS",
-                                    style: TextStyle(
-                                        fontSize: 18
-                                    ),
+                                    style: TextStyle(fontSize: 18),
                                   )
                                 ],
                               ),
                             ),
                           ),
-
                           InkWell(
-                            onTap: (){
+                            onTap: () {
                               Navigator.pushNamed(context, '/modul');
                             },
                             child: Container(
                               padding: EdgeInsets.all(8),
-                              width: MediaQuery.of(context).size.width/2.7,
+                              width: MediaQuery.of(context).size.width / 2.7,
                               height: 140,
                               decoration: BoxDecoration(
                                   color: Colors.white,
@@ -167,8 +269,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                         5.0, // Move to bottom 5 Vertically
                                       ),
                                     )
-                                  ]
-                              ),
+                                  ]),
                               child: Column(
                                 children: [
                                   Image.asset(
@@ -178,22 +279,19 @@ class _MyHomePageState extends State<MyHomePage> {
                                   Spacer(),
                                   Text(
                                     "BELAJAR",
-                                    style: TextStyle(
-                                        fontSize: 18
-                                    ),
+                                    style: TextStyle(fontSize: 18),
                                   )
                                 ],
                               ),
                             ),
                           ),
-
                           InkWell(
-                            onTap: (){
+                            onTap: () {
                               Navigator.pushNamed(context, '/modul/latihan');
                             },
                             child: Container(
                               padding: EdgeInsets.all(8),
-                              width: MediaQuery.of(context).size.width/2.7,
+                              width: MediaQuery.of(context).size.width / 2.7,
                               height: 140,
                               decoration: BoxDecoration(
                                   color: Colors.white,
@@ -208,8 +306,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                         5.0, // Move to bottom 5 Vertically
                                       ),
                                     )
-                                  ]
-                              ),
+                                  ]),
                               child: Column(
                                 children: [
                                   Image.asset(
@@ -219,9 +316,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   Spacer(),
                                   Text(
                                     "LATIHAN",
-                                    style: TextStyle(
-                                        fontSize: 18
-                                    ),
+                                    style: TextStyle(fontSize: 18),
                                   )
                                 ],
                               ),
@@ -229,7 +324,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                           Container(
                             padding: EdgeInsets.all(8),
-                            width: MediaQuery.of(context).size.width/2.7,
+                            width: MediaQuery.of(context).size.width / 2.7,
                             height: 140,
                             decoration: BoxDecoration(
                                 color: Colors.white,
@@ -244,8 +339,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                       5.0, // Move to bottom 5 Vertically
                                     ),
                                   )
-                                ]
-                            ),
+                                ]),
                             child: Column(
                               children: [
                                 Image.asset(
@@ -255,9 +349,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 Spacer(),
                                 Text(
                                   "PANDUAN",
-                                  style: TextStyle(
-                                      fontSize: 18
-                                  ),
+                                  style: TextStyle(fontSize: 18),
                                 )
                               ],
                             ),

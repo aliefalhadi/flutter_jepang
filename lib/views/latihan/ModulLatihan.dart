@@ -81,7 +81,7 @@ class _ModulLatihanState extends State<ModulLatihan> {
                                                   child: Column(
                                                     crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
-                                                      Text(provider.daftarModulLatihanModel.data[index].namaModulLatihan, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),),
+                                                      Text(provider.daftarModulLatihanModel.data[index].model.namaModulLatihan, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),),
                                                       SizedBox(height: 16,),
                                                       CircleAvatar(
                                                         backgroundColor: Colors.redAccent.withOpacity(0.2),
@@ -140,7 +140,7 @@ class _ModulLatihanState extends State<ModulLatihan> {
                                           radius: 35.0,
                                           lineWidth: 2.0,
                                           percent: provider.listProgressLatihanUser[index]['nilaiProses']/100,
-                                          center: Text(provider.listProgressLatihanUser[index]['nilaiProses'].toString()+"%", style: TextStyle(fontSize: 11),),
+                                          center: Text(provider.listProgressLatihanUser[index]['nilaiProses'].toString()+"%", style: TextStyle(fontSize: 8),),
                                           progressColor : index%2 != 0 ? Colors.deepPurpleAccent : Colors.lightBlue,
                                         ),
                                       ),

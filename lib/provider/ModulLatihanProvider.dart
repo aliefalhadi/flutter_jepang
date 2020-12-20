@@ -19,8 +19,8 @@ class ModulLatihanProvider extends BaseProvider {
 
   Future initDataModul() async {
     try {
-      print('asdasd');
       setState(ViewState.Fetching);
+      listProgressLatihanUser = [];
       await getDaftarModulLatihan();
       await checkProgressLatihanUser(daftarModulLatihanModel);
       setState(ViewState.Idle);
@@ -49,13 +49,13 @@ class ModulLatihanProvider extends BaseProvider {
     print('masuk');
     daftarModulLatihanModel.data.forEach((element) {
         //check progress dari db
-      int indexDataProgressLocal = locator<EventBusService>().progressLatihanUser.indexWhere((element2) => element2['idModulLatihan'] == element.idModulLatihan);
+      int indexDataProgressLocal = locator<EventBusService>().progressLatihanUser.indexWhere((element2) => element2['idModulLatihan'] == element.model.idModulLatihan);
 
       if(indexDataProgressLocal == -1){
           listProgressLatihanUser.add(
             {
-              "namaModulLatihan" : element.namaModulLatihan,
-              "idModulLatihan" : element.idModulLatihan,
+              "namaModulLatihan" : element.model.namaModulLatihan,
+              "idModulLatihan" : element.model.idModulLatihan,
               "soalSelesai" : [],
               "nilaiProses" : 0
             }
@@ -63,10 +63,10 @@ class ModulLatihanProvider extends BaseProvider {
       }else{
         listProgressLatihanUser.add(
             {
-              "namaModulLatihan" : element.namaModulLatihan,
-              "idModulLatihan" : element.idModulLatihan,
+              "namaModulLatihan" : element.model.namaModulLatihan,
+              "idModulLatihan" : element.model.idModulLatihan,
               "soalSelesai" : locator<EventBusService>().progressLatihanUser[indexDataProgressLocal]['soalSelesai'],
-              "nilaiProses" : locator<EventBusService>().progressLatihanUser[indexDataProgressLocal]['soalSelesai'].length /2
+              "nilaiProses" : locator<EventBusService>().progressLatihanUser[indexDataProgressLocal]['soalSelesai'].length / int.parse(element.jumlahSoal) *100
             }
         );
       }

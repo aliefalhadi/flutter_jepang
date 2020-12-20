@@ -1,15 +1,15 @@
-import 'dart:developer';
-
+import 'dart:convert';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutterstarter/locator.dart';
 import 'package:flutterstarter/models/DaftarSoalModulLatihanModel.dart';
 import 'package:flutterstarter/services/EventBusService.dart';
+import 'package:flutterstarter/services/LatihanService.dart';
 import 'package:material_dialogs/material_dialogs.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:speech_to_text/speech_to_text.dart';
-import 'package:toast/toast.dart';
 
 class JawabSoalLatihan extends StatefulWidget {
   int indexSoal;
@@ -133,7 +133,7 @@ class _JawabSoalLatihanState extends State<JawabSoalLatihan> {
           );
         },
       );
-      Future.delayed(Duration(seconds: 2), (){
+      Future.delayed(Duration(seconds: 2), ()async{
         if(_text == dataSoal.textJepang){
           //simpan ke soal selesai di local
           int indexDataProgressLocal = locator<EventBusService>().progressLatihanUser.indexWhere((element2) => element2['idModulLatihan'] == dataSoal.idModulLatihan);
@@ -146,11 +146,32 @@ class _JawabSoalLatihanState extends State<JawabSoalLatihan> {
                 'soalSelesai' : [dataSoal.nomorSoal]
               }
             );
+            //kirim ke db
+            SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+            var data = {
+              'email' : sharedPreferences.getString('email'),
+              'dataProgres' : jsonEncode(locator<EventBusService>().progressLatihanUser)
+            };
+            bool res = await locator<LatihanService>().tambahPorgresUser(jsonEncode(data));
+            print(res);
           }else{
-            //tambahkan ke daftar soalselesai
-            locator<EventBusService>().progressLatihanUser[indexDataProgressLocal]['soalSelesai'] = [...locator<EventBusService>().progressLatihanUser[indexDataProgressLocal]['soalSelesai'], dataSoal.nomorSoal];
+            //cek apakah nomor sudah ada atau belum di local
+            if(!locator<EventBusService>().progressLatihanUser[indexDataProgressLocal]['soalSelesai'].contains(dataSoal.nomorSoal)){
+              //tambahkan ke daftar soalselesai
+              locator<EventBusService>().progressLatihanUser[indexDataProgressLocal]['soalSelesai'] = [...locator<EventBusService>().progressLatihanUser[indexDataProgressLocal]['soalSelesai'], dataSoal.nomorSoal];
+              //kirim ke db
+              SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+              var data = {
+                'email' : sharedPreferences.getString('email'),
+                'dataProgres' : jsonEncode(locator<EventBusService>().progressLatihanUser)
+              };
+              bool res = await locator<LatihanService>().updatePorgresUser(jsonEncode(data));
+              print(res);
+            }else{
+              print('sudah ada');
+            }
           }
-          print(locator<EventBusService>().progressLatihanUser);
+
           Navigator.pop(context);
           Dialogs.materialDialog(
               color: Colors.white,

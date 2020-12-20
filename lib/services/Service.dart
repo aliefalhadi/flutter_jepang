@@ -93,6 +93,24 @@ class Service {
     }
   }
 
+  Future put(String url, var data) async {
+
+    url = baseUrl + url;
+    print(url);
+    if (await locator<ApiInterceptors>().checkConnection()) {
+      final response = await dio.put(url,
+          options: Options(headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          }),
+          data: data);
+      return response;
+    } else {
+      print('no');
+      throw SocketException('no_internet');
+    }
+  }
+
 
   Future patch(String url, var data) async {
 
