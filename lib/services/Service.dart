@@ -41,7 +41,7 @@ class Service {
       print(url);
       if (await locator<ApiInterceptors>().checkConnection()) {
         final response =
-        dio.get(url, options: Options(headers: {"requiresToken": true}));
+        dio.get(url);
         return response;
       } else {
         print('no');
@@ -83,8 +83,7 @@ class Service {
       final response = await dio.post(url,
           options: Options(headers: {
             'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            "requiresToken": true
+            'Accept': 'application/json'
           }),
           data: data);
       return response;

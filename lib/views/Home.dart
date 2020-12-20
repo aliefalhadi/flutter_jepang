@@ -189,7 +189,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
                           InkWell(
                             onTap: (){
-                              Navigator.pushNamed(context, '/test-latihan');
+                              Navigator.pushNamed(context, '/modul/latihan');
                             },
                             child: Container(
                               padding: EdgeInsets.all(8),

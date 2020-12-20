@@ -10,6 +10,7 @@ class KamusService extends Service {
       var url = "/dictionaries/daftar-kamus"+ "?page=" + page;
       print(url);
       var response = await get(url);
+      print('errroorrrrrr');
       print(response.statusCode);
       if (response.statusCode == 200) {
         DaftarKataModel daftarKataModel =

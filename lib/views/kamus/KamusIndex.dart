@@ -180,7 +180,7 @@ class _KamusIndexState extends State<KamusIndex> {
                                         ],
                                       ),
                                       InkWell(
-                                          child: Icon(Icons.audiotrack),
+                                          child: Icon(Icons.volume_up),
                                         onTap: () async{
                                           FlutterTts flutterTts = FlutterTts();
                                           await flutterTts.setLanguage("ja-JP");

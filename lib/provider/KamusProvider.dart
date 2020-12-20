@@ -41,6 +41,7 @@ class KamusProvider extends BaseProvider {
     } on SocketException catch (e) {
       setState(ViewState.ErrConnection);
     } catch (e) {
+      print(e);
       if (e == 404 || e == 502 || e == 503) {
         setState(ViewState.ErrConnection);
       } else {
