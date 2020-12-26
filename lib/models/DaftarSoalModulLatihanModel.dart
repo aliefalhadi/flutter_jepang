@@ -34,6 +34,7 @@ class Datum {
     this.idModulLatihan,
     this.nomorSoal,
     this.textJepang,
+    this.textJepangAlternatif,
     this.textLatin,
     this.terjemahanText,
   });
@@ -42,6 +43,7 @@ class Datum {
   int idModulLatihan;
   int nomorSoal;
   String textJepang;
+  String textJepangAlternatif;
   String textLatin;
   String terjemahanText;
 
@@ -50,6 +52,7 @@ class Datum {
     idModulLatihan: json["id_modul_latihan"],
     nomorSoal: json["nomor_soal"],
     textJepang: json["text_jepang"],
+    textJepangAlternatif: json["text_jepang_alternatif"] == null ||  json["text_jepang_alternatif"] == '' ? null : json["text_jepang_alternatif"],
     textLatin: json["text_latin"],
     terjemahanText: json["terjemahan_text"],
   );
@@ -59,6 +62,7 @@ class Datum {
     "id_modul_latihan": idModulLatihan,
     "nomor_soal": nomorSoal,
     "text_jepang": textJepang,
+    "text_jepang_alternatif": textJepangAlternatif == null || textJepangAlternatif == '' ? null : textJepangAlternatif,
     "text_latin": textLatin,
     "terjemahan_text": terjemahanText,
   };

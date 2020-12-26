@@ -140,7 +140,7 @@ class _ModulLatihanState extends State<ModulLatihan> {
                                           radius: 35.0,
                                           lineWidth: 2.0,
                                           percent: provider.listProgressLatihanUser[index]['nilaiProses']/100,
-                                          center: Text(provider.listProgressLatihanUser[index]['nilaiProses'].toString()+"%", style: TextStyle(fontSize: 8),),
+                                          center: Text(provider.listProgressLatihanUser[index]['nilaiProses'].round().toString()+"%", style: TextStyle(fontSize: 8),),
                                           progressColor : index%2 != 0 ? Colors.deepPurpleAccent : Colors.lightBlue,
                                         ),
                                       ),

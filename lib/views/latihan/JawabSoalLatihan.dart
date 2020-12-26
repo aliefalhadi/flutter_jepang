@@ -12,7 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
 class JawabSoalLatihan extends StatefulWidget {
-  int indexSoal;
+  final int indexSoal;
   JawabSoalLatihan({this.indexSoal});
   @override
   _JawabSoalLatihanState createState() => _JawabSoalLatihanState();
@@ -133,8 +133,18 @@ class _JawabSoalLatihanState extends State<JawabSoalLatihan> {
           );
         },
       );
-      Future.delayed(Duration(seconds: 2), ()async{
-        if(_text == dataSoal.textJepang){
+      Future.delayed(Duration(seconds: 4), ()async{
+        bool cekKataPengucapan = false;
+        if(dataSoal.textJepangAlternatif != null || dataSoal.textJepangAlternatif != ''){
+          if(_text == dataSoal.textJepang || _text == dataSoal.textJepangAlternatif){
+            cekKataPengucapan = true;
+          }
+        }else{
+          if(_text == dataSoal.textJepang){
+            cekKataPengucapan = true;
+          }
+        }
+        if(cekKataPengucapan){
           //simpan ke soal selesai di local
           int indexDataProgressLocal = locator<EventBusService>().progressLatihanUser.indexWhere((element2) => element2['idModulLatihan'] == dataSoal.idModulLatihan);
           print('jawabb');
