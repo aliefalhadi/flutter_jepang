@@ -34,6 +34,7 @@ class KamusService extends Service {
     try {
       var url = "/dictionaries/cari-kata-kamus";
       print(url);
+      print(kata);
       var response = await post(url, kata);
       print(response.statusCode);
       if (response.statusCode == 200) {

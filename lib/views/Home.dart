@@ -4,6 +4,7 @@ import 'package:flutterstarter/locator.dart';
 import 'package:flutterstarter/provider/HomeProvider.dart';
 import 'package:flutterstarter/provider/LoginProvider.dart';
 import 'package:flutterstarter/views/BaseView.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -164,39 +165,44 @@ class _MyHomePageState extends State<MyHomePage> {
                                     color: Colors.white,
                                   ),
                                 ),
-                                Container(
-                                  margin: EdgeInsets.only(top: 8),
-                                  padding: EdgeInsets.all(8),
-                                  height: 40,
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(20),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black.withOpacity(0.2),
-                                          blurRadius: 5.0,
-                                          spreadRadius: 0.1,
-                                          offset: Offset(
-                                            0.0, // Move to right 10  horizontally
-                                            5.0, // Move to bottom 5 Vertically
+                                InkWell(
+                                  onTap: (){
+                                    Navigator.pushNamed(context, '/kamus');
+                                  },
+                                  child: Container(
+                                    margin: EdgeInsets.only(top: 8),
+                                    padding: EdgeInsets.all(8),
+                                    height: 40,
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(20),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.black.withOpacity(0.2),
+                                            blurRadius: 5.0,
+                                            spreadRadius: 0.1,
+                                            offset: Offset(
+                                              0.0, // Move to right 10  horizontally
+                                              5.0, // Move to bottom 5 Vertically
+                                            ),
                                           ),
+                                        ]),
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.search,
+                                          color: Colors.grey,
                                         ),
-                                      ]),
-                                  child: Row(
-                                    children: [
-                                      Icon(
-                                        Icons.search,
-                                        color: Colors.grey,
-                                      ),
-                                      SizedBox(
-                                        width: 8,
-                                      ),
-                                      Text(
-                                        "Cari kosa kata",
-                                        style: TextStyle(color: Colors.grey),
-                                      )
-                                    ],
+                                        SizedBox(
+                                          width: 8,
+                                        ),
+                                        Text(
+                                          "Cari kosa kata",
+                                          style: TextStyle(color: Colors.grey),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ],
@@ -322,36 +328,68 @@ class _MyHomePageState extends State<MyHomePage> {
                               ),
                             ),
                           ),
-                          Container(
-                            padding: EdgeInsets.all(8),
-                            width: MediaQuery.of(context).size.width / 2.7,
-                            height: 140,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(20),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    blurRadius: 5.0,
-                                    spreadRadius: 0.1,
-                                    offset: Offset(
-                                      0.0, // Move to right 10  horizontally
-                                      5.0, // Move to bottom 5 Vertically
-                                    ),
-                                  )
-                                ]),
-                            child: Column(
-                              children: [
-                                Image.asset(
-                                  'assets/images/kamus.png',
-                                  width: 80,
+                          InkWell(
+                            onTap: (){
+                              Alert(
+                                context: context,
+                                type: AlertType.none,
+                                title: "PANDUAN APLIKASI",
+                                content: Column(
+                                  children: [
+                                    Text("Aplikasi pembelajaran Bahasa Jepanag ini memiliki materi pembelajaran berasal dari buku \"Jago Kuasai Bahasa Jepang\" yang ditulis oleh Aditya R. Saputra S.S dab Bayu S. Wipriyanto, S.S.", textAlign: TextAlign.justify, style: Theme.of(context).textTheme.bodyText1,),
+                                    SizedBox(height: 8,),
+                                    Text("Aplikasi ini memiliki 6 sub menu materi yang terdiri dari kata sambung, kata bantu, kata sifat, kata ganti tunjuk, kata kerja dan kata benda.", textAlign: TextAlign.justify, style: Theme.of(context).textTheme.bodyText1,),
+                                    SizedBox(height: 8,),
+                                    Text("Dibawah ini adalah panduan menggunakan aplikasi:", textAlign: TextAlign.justify, style: Theme.of(context).textTheme.bodyText1,),
+                                    Text("1. Pengguna aplikasi login menggunakan akun google.", textAlign: TextAlign.justify, style: Theme.of(context).textTheme.bodyText1,),
+                                    Text("2. pengguna bisa belajar materi pada menu belajar.", textAlign: TextAlign.justify, style: Theme.of(context).textTheme.bodyText1,),
+                                    Text("3. Penguna bisa melihat kosa kata bahsa jepang pada menu kamus.", textAlign: TextAlign.justify, style: Theme.of(context).textTheme.bodyText1,),
+                                    Text("4. Pengguna bisa menyelesaikan semua kategori latihan pengucapakan pada menu latihan.", textAlign: TextAlign.justify, style: Theme.of(context).textTheme.bodyText1,),
+                                  ],
                                 ),
-                                Spacer(),
-                                Text(
-                                  "PANDUAN",
-                                  style: TextStyle(fontSize: 18),
-                                )
-                              ],
+                                buttons: [
+                                  DialogButton(
+                                    child: Text(
+                                      "OK",
+                                      style: TextStyle(color: Colors.white, fontSize: 20),
+                                    ),
+                                    onPressed: () => Navigator.pop(context),
+                                    width: 120,
+                                  )
+                                ],
+                              ).show();
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(8),
+                              width: MediaQuery.of(context).size.width / 2.7,
+                              height: 140,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(20),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.2),
+                                      blurRadius: 5.0,
+                                      spreadRadius: 0.1,
+                                      offset: Offset(
+                                        0.0, // Move to right 10  horizontally
+                                        5.0, // Move to bottom 5 Vertically
+                                      ),
+                                    )
+                                  ]),
+                              child: Column(
+                                children: [
+                                  Image.asset(
+                                    'assets/images/kamus.png',
+                                    width: 80,
+                                  ),
+                                  Spacer(),
+                                  Text(
+                                    "PANDUAN",
+                                    style: TextStyle(fontSize: 18),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ],

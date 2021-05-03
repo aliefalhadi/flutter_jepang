@@ -41,6 +41,22 @@ class _ModulBelajarDetailState extends State<ModulBelajarDetail> {
                         "Penjelasan:",
                         textAlign: TextAlign.center,
                       ),
+                      Text(
+                        "Ketuk speaker untuk mendengarkan penjelasan",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontStyle: FontStyle.italic),
+                      ),
+                      SizedBox(height: 16,),
+                      InkWell(
+                        child: Icon(Icons.volume_up),
+                        onTap: () async{
+                          FlutterTts flutterTts = FlutterTts();
+                          await flutterTts.setLanguage("id-ID");
+                          await flutterTts.setSpeechRate(1.0);
+                          await flutterTts.setPitch(0.3);
+                          await flutterTts.speak(datumBelajar.hintText);
+                        },
+                      ),
                       SizedBox(height: 16,),
                       Text(
                         datumBelajar.hintText,
